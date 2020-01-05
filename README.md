@@ -4,7 +4,7 @@
 
 For this assignment, you'll create a memory game with React. This assignment will require you to break up your application's UI into components, manage component state, and respond to user events.
 
-(Project Demo)[https://malinkamell.github.io/Clicky-Game/]
+[Project Demo](https://malinkamell.github.io/clicky-game/)
 
 ### Instructions
 
@@ -22,7 +22,7 @@ For this assignment, you'll create a memory game with React. This assignment wil
 
 7. When complete, the application should be deployed to Github Pages. See the README generated with Create React App for instructions on deploying the application to Github Pages.
 
-
+---
 
 **Optimized for 1920x1080 screen resolution and Google Chrome Version 78**
 
