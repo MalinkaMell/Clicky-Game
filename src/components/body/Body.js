@@ -84,7 +84,7 @@ class Body extends React.Component {
 
 function Card(props) {
   return (
-    <Image src={'/images/' + props.link } thumbnail className="m-3" id={props.id} onClick={() => props.handleCount(props.id)} />
+    <Image src={'images/' + props.link } thumbnail className="m-3" id={props.id} onClick={() => props.handleCount(props.id)} />
   )
 }
 
