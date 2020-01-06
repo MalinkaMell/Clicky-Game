@@ -13,7 +13,8 @@ class Body extends React.Component {
     count: 0,
     score: 0,
     images: images,
-    beenClicked: []
+    beenClicked: [],
+    message: ""
   };
 
   handleCount = (id) => {
@@ -23,18 +24,36 @@ class Body extends React.Component {
 
     if (beenClicked.indexOf(id) === -1) {
       beenClicked.push(id);
-      this.setState({ count: this.state.count + 1, beenClicked });
+      if (this.state.count < this.state.score) {
+        this.setState(
+          {
+            count: this.state.count + 1,
+            beenClicked,
+            message: "You guessed correctly!"
+          }
+        );
+      } else {
+        this.setState(
+          {
+            count: this.state.count + 1,
+            beenClicked,
+            score: this.state.score + 1,
+            message: "You guessed correctly!"
+          }
+        );
+      }
+
     } else {
       console.log("game over");
-      this.setState({ count: 0, beenClicked: [], score: this.state.score + 1 });
+      this.setState({ count: 0, beenClicked: [], score: this.state.score, message: "You guessed incorrectly!" });
     }
-    
+
   };
 
   render() {
     return (
       <div>
-        <Header userScore={this.state.count} userTopScore={this.state.score}/>
+        <Header userScore={this.state.count} userTopScore={this.state.score} userMessage={this.state.message} />
         <Instructions />
         <Container>
           <Row className="d-flex justify-content-center">
@@ -65,7 +84,7 @@ class Body extends React.Component {
 
 function Card(props) {
   return (
-    <Image src={props.link} thumbnail className="m-2" id={props.id} onClick={() => props.handleCount(props.id)} />
+    <Image src={props.link} thumbnail className="m-3" id={props.id} onClick={() => props.handleCount(props.id)} />
   )
 }
 
