@@ -25,26 +25,26 @@
   },
   {
     "id": 7,
-    "link": "/images/7.png"
+    "link": "./images/7.png"
   },
   {
     "id": 8,
-    "link": "/images/8.png"
+    "link": "./images/8.png"
   },
   {
     "id": 9,
-    "link": "/images/9.png"
+    "link": "./images/9.png"
   },
   {
     "id": 10,
-    "link": "/images/10.png"
+    "link": "./images/10.png"
   },
   {
     "id": 11,
-    "link": "/images/11.png"
+    "link": "./images/11.png"
   },
   {
     "id": 12,
-    "link": "/images/12.png"
+    "link": "./images/12.png"
   }
 ]
