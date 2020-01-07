@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import images from '../../images.json';
-import Header from '../navbar/Navbar';
 import Instructions from '../instructions/Instructions';
 
 class Body extends React.Component {
@@ -14,16 +13,20 @@ class Body extends React.Component {
     score: 0,
     images: images,
     beenClicked: [],
-    message: ""
+    message: "",
+    shake: false
   };
 
   handleCount = (id) => {
-    console.log(id)
+
+    console.log(id);
 
     let beenClicked = [...this.state.beenClicked];
 
     if (beenClicked.indexOf(id) === -1) {
+
       beenClicked.push(id);
+
       if (this.state.count < this.state.score) {
         this.setState(
           {
@@ -45,46 +48,50 @@ class Body extends React.Component {
 
     } else {
       console.log("game over");
-      this.setState({ count: 0, beenClicked: [], score: this.state.score, message: "You guessed incorrectly!" });
+      this.setState({ count: 0, beenClicked: [], score: this.state.score, message: "You guessed incorrectly!", shake: true });
     }
 
   };
 
   render() {
+
+    let rowClass = "d-flex justify-content-center text-center";
+
+    if (this.state.shake) {
+      rowClass += " shake";
+      setTimeout(() => this.setState({ shake: false }), 1000)
+    } else {
+      rowClass = "d-flex justify-content-center text-center noshake";
+    }
+
     return (
       <div>
-        <Header userScore={this.state.count} userTopScore={this.state.score} userMessage={this.state.message} />
-        <Instructions />
+        <Instructions userScore={this.state.count} userTopScore={this.state.score} userMessage={this.state.message} />
         <Container>
-          <Row className="d-flex justify-content-center">
+          <Row className={rowClass}>
             <Col xs={12} md={8}>
               {
-                this.state.images.map((image) =>
-                  <Card
-                    link={image.link}
-                    id={image.id}
-                    handleCount={this.handleCount}
-                  />
-
-                  /*     Card({
-                        link: image.link,
-                        id: image.id,
-                        handleCount: this.handleCount              
-                      }) */
-                  //   <Image  src={image.link} thumbnail className="m-2" id={image.id} onClick={() => this.handleCount(image.id)}/// dataclicked={this.state.clicked.toString()} />
-                )
+                this.state.images
+                  .sort(() => Math.random() - 0.5)
+                  .map((image) =>
+                    <Card
+                      link={image.link}
+                      id={image.id}
+                      handleCount={this.handleCount}
+                    />
+                  )
               }
             </Col>
           </Row>
         </Container>
-      </div>
+      </div >
     );
   };
 }
 
 function Card(props) {
   return (
-    <Image src={'images/' + props.link } thumbnail className="m-3" id={props.id} onClick={() => props.handleCount(props.id)} />
+    <Image src={'images/' + props.link} thumbnail className="m-1 m-md-2 m-lg-3" id={props.id} onClick={() => props.handleCount(props.id)} />
   )
 }
 
