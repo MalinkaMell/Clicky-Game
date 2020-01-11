@@ -1,6 +1,6 @@
 # Clicky-Game
 
-![Banner](images/githubtpl.png)
+![Banner](public/images/githubtpl.png)
 
 ### Overview
 
