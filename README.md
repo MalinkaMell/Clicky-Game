@@ -24,10 +24,10 @@ For this assignment, you'll create a memory game with React. This assignment wil
 
 ### Technologies and npm packages used
 
-JavaScript
-Node.js
-ReactJS
-React Bootstrap
+* JavaScript
+* Node.js
+* ReactJS
+* React Bootstrap
 
 ---
 
