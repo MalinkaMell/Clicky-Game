@@ -6,6 +6,8 @@ const Instructions = (props) => {
   let userMsg = "h5"; //assign placeholder class so i can add more classes to it later
   if (props.userMessage === "You guessed incorrectly!") {
     userMsg += " text-danger" //make text red when clicked wrong
+  } else if (props.userMessage === "You won!") {
+    userMsg += " text-success" //make text green when won
   }
   return (
       <Container fluid className="m-0 text-center p-2">

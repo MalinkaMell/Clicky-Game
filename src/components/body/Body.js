@@ -14,14 +14,15 @@ class Body extends React.Component {
     images, //so i can use images from state
     beenClicked: [], //array of clicked images IDs
     message: "Click an image to begin!", //message to user, empty for now
-    shake: false //shaking the whole container if the guess is wrong
+    shake: false, //shaking the whole container if the guess is wrong
+    won: false //set it to true when images.length is equal to beenClicked.length
   };
 
   //handle count function aka what are we doin' on click
   //passing ID from image, so react knows on what image we are operating
   handleCount = (id) => {
     //if container is shaking do not accept any clicks
-    if (this.state.shake) {
+    if (this.state.shake || this.state.won) {
       return false;
     }
 
@@ -32,8 +33,15 @@ class Body extends React.Component {
     if (beenClicked.indexOf(id) === -1) {
       beenClicked.push(id); //push image ID to the array
 
-      if (this.state.count < this.state.score) {
-        //if the count less than high score keep increasing the counter, not increasing the high score, giving guessed correctly messge and updating beenClicked array
+      if (beenClicked.length === images.length) {
+
+        //if we won, set count to 0, set score to beenClicked.length (it has to be the same to win, right? :)), 
+        //set message to You won and horizontaly shake the container for 1 seecond
+
+        this.setState({ count: 0, beenClicked: [], score: beenClicked.length, message: "You won!", won: true });
+
+      } else if (this.state.count < this.state.score) {
+        //if the count less than high score keep increasing the counter, not increasing the high score, giving guessed correctly message and updating beenClicked array
         this.setState(
           {
             count: this.state.count + 1,
@@ -52,10 +60,11 @@ class Body extends React.Component {
           }
         );
       }
+
     } else {
       //if image ID is in beenClicked array, means we already clicked it, so the game is over
       console.log("game over");
-      //reseting the count, emptying beenClicked array, saving the high score, giving incorrect guess message and shaking
+      //reseting the count, emptying beenClicked array, saving the high score, giving incorrect guess message and vertically shaking
       this.setState({ count: 0, beenClicked: [], score: this.state.score, message: "You guessed incorrectly!", shake: true });
     }
   };
@@ -64,13 +73,16 @@ class Body extends React.Component {
 
     //define class for images container here, so i can manipulate it
     let rowClass = "d-flex justify-content-center text-center";
-    //if state shake is equal to true, adding shake class to the container, shaking it for one second, 
-    //setting shae state back to false, and removing the shake class
+    //if states shake or win are equal to true, adding shake class to the container, shaking it for one second, 
+    //setting shake or won state back to false, and removing the shake class
     if (this.state.shake) {
-      rowClass += " shake";
+      rowClass += " shake-vertical shake-constant";
       setTimeout(() => this.setState({ shake: false }), 1000)
+    } else if (this.state.won) {
+      rowClass += " shake-horizontal shake-constant";
+      setTimeout(() => this.setState({ won: false }), 1000)
     } else {
-      rowClass = "d-flex justify-content-center text-center noshake";
+      rowClass = "d-flex justify-content-center text-center";
     }
 
     return (
